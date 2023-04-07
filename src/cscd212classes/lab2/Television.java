@@ -13,10 +13,11 @@ public class Television implements Comparable<Television>{
 
     public Television(final String make, final String model, final boolean smart, final int screenSize, final int resolution){
 
-        if(make == null) throw new IllegalArgumentException("Make is null");
-        if(model == null) throw new IllegalArgumentException("Model is null");
-        if(screenSize < 32) throw new IllegalArgumentException("Screen size too low");
-        if(resolution < 720) throw new IllegalArgumentException("Resolution too low");
+        if(make == null ||
+                model == null ||
+                screenSize < 32 ||
+                resolution < 720)
+            throw new IllegalArgumentException("Invalid parameter in constructor");
 
         this.make = make;
         this.model = model;
@@ -59,6 +60,11 @@ public class Television implements Comparable<Television>{
         return Objects.hash(fourK, make, model, resolution, screenSize, smart);
     }
 
+    @Override
+    public String toString(){
+        return "";
+    }
+
     public int getScreenSize() {
         return this.screenSize;
     }
@@ -66,7 +72,7 @@ public class Television implements Comparable<Television>{
     @Override
     public int compareTo(Television another){
 
-       if(another == null) throw new IllegalArgumentException("Null input for Television.compareTo");
+       if(another == null) throw new IllegalArgumentException("null parameter in the compareTo method");
        if(this.make.compareTo(another.make) == 0){
            if(this.model.compareTo(another.model) == 0){
                return this.screenSize - another.screenSize;
