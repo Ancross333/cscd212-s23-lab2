@@ -1,9 +1,9 @@
 package cscd212classes.lab2;
 
-import java.util.Objects;
 
 public class Television implements Comparable<Television>{
 
+    //Instance Fields
     private final boolean fourK;
     private final String make;
     private final String model;
@@ -11,6 +11,7 @@ public class Television implements Comparable<Television>{
     private final int screenSize;
     private final boolean smart;
 
+    //EVC that does all the work
     public Television(final String make, final String model, final boolean smart, final int screenSize, final int resolution){
 
         if(make == null ||
@@ -26,9 +27,13 @@ public class Television implements Comparable<Television>{
         this.resolution = resolution;
         this.fourK = (resolution == 2160);
     }
+
+    //Lazy EVC
     public Television(final String model, final boolean smart, final int screenSize, final int resolution, final String make){
         this(make, model, smart, screenSize, resolution);
     }
+
+    //Getters
 
     public String getMake() {
         return this.make;
@@ -36,6 +41,10 @@ public class Television implements Comparable<Television>{
 
     public String getModel() {
         return this.model;
+    }
+
+    public int getScreenSize() {
+        return this.screenSize;
     }
 
     public int getResolution() {
@@ -55,19 +64,24 @@ public class Television implements Comparable<Television>{
                 model.equals(that.model);
     }
 
+
+    //Fancy Hashcode
+
     @Override
     public int hashCode() {
-        return Objects.hash(fourK, make, model, resolution, screenSize, smart);
+        return this.make.hashCode() + this.model.hashCode() + this.resolution +
+                Boolean.hashCode(this.smart) + Boolean.hashCode(this.fourK);
     }
 
+
+    //Fancy toString
     @Override
     public String toString(){
-        return "";
+        return this.make + "-" + this.model + ", " + this.screenSize + " inch"
+                + (this.smart? " smart " : " ") + "tv with " +
+                (fourK? "4K" : resolution) + " resolution";
     }
 
-    public int getScreenSize() {
-        return this.screenSize;
-    }
 
     @Override
     public int compareTo(Television another){
